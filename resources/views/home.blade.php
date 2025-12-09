@@ -17,7 +17,24 @@
                 يمكنك التبرع بالمال، الملابس، الأجهزة، أو أي شيء يمكنه أن يُحدث فرقًا.
             </p>
 
-            <a href="{{ route('donations.create') }}" class="btn btn-primary btn-lg px-4 me-2">تبرّع الآن</a>
+            @if(auth()->check())
+    {{-- المستخدم مسجّل دخول --}}
+    <a href="{{ route('donations.create') }}" class="btn btn-primary btn-lg px-4 me-2">
+        تبرّع الآن
+    </a>
+@else
+    {{-- المستخدم غير مسجّل --}}
+    <a href="#" onclick="requireLogin()" class="btn btn-primary btn-lg px-4 me-2">
+        تبرّع الآن
+    </a>
+@endif
+<script>
+function requireLogin() {
+    alert("يجب تسجيل الدخول قبل القيام بعملية التبرّع.");
+    window.location.href = "{{ route('register') }}";
+}
+</script>
+
             <a href="{{ route('campaigns.index') }}" class="btn btn-outline-secondary btn-lg px-4">استعرض الحملات</a>
         </div>
 

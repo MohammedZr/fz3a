@@ -59,5 +59,9 @@ public function isAdmin()
     return $this->role === 'admin';
 }
 
+public function isOnline()
+{
+    return Cache::has('user-online-' . $this->id);
+}
 
 }

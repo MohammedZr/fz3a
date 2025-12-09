@@ -12,7 +12,7 @@
 
     {{-- فلتر --}}
     <form class="row g-2 mb-3" method="GET" action="{{ route('admin.donations.index') }}">
-        <div class="col-md-3">
+        {{-- <div class="col-md-3">
             <select name="status" class="form-select">
                 <option value="">كل الحالات</option>
                 <option value="pending" {{ request('status')=='pending'?'selected':'' }}>معلق</option>
@@ -20,7 +20,7 @@
                 <option value="cancelled" {{ request('status')=='cancelled'?'selected':'' }}>ملغي</option>
                 <option value="verified" {{ request('status')=='verified'?'selected':'' }}>مؤكد</option>
             </select>
-        </div>
+        </div> --}}
 
         <div class="col-md-2">
             <select name="type" class="form-select">
@@ -64,7 +64,7 @@
                     <th>المبلغ</th>
                     <th>المتبرع</th>
                     <th>حملة</th>
-                    <th>الحالة</th>
+                    {{-- <th>الحالة</th> --}}
                     <th>التاريخ</th>
                     <th width="220">إجراءات</th>
                 </tr>
@@ -84,17 +84,17 @@
                         <small class="text-muted">{{ $d->donor_email }}</small>
                     </td>
                     <td>{{ $d->campaign?->title ?? '-' }}</td>
-                    <td>
+                    {{-- <td>
                         <span class="badge
                             {{ $d->status==='paid' ? 'bg-success' : ($d->status==='pending' ? 'bg-warning text-dark' : 'bg-secondary') }}">
                             {{ ucfirst($d->status) }}
                         </span>
-                    </td>
+                    </td> --}}
                     <td>{{ $d->created_at->format('Y-m-d H:i') }}</td>
                     <td>
-                        <a href="{{ route('admin.donations.show', $d->id) }}" class="btn btn-sm btn-outline-primary">عرض</a>
+                        <a href="{{ route('admin.donations.show', $d->id) }}" class="btn btn-sm btn-primary btn-lg px-4 me-2">عرض</a>
 
-                        <form action="{{ route('admin.donations.changeStatus', $d->id) }}" method="POST" class="d-inline">
+                        {{-- <form action="{{ route('admin.donations.changeStatus', $d->id) }}" method="POST" class="d-inline">
                             @csrf
                             <select name="status" class="form-select form-select-sm d-inline-block" style="width:110px; vertical-align:middle;">
                                 <option value="pending">معلق</option>
@@ -103,11 +103,11 @@
                                 <option value="cancelled">ملغي</option>
                             </select>
                             <button class="btn btn-sm btn-outline-success">تطبيق</button>
-                        </form>
+                        </form> --}}
 
                         <form action="{{ route('admin.donations.destroy', $d->id) }}" method="POST" class="d-inline" onsubmit="return confirm('تأكيد الحذف؟')">
                             @csrf @method('DELETE')
-                            <button class="btn btn-sm btn-outline-danger">حذف</button>
+                            <button class="btn btn-sm btn-danger btn-lg px-4 me-2">حذف</button>
                         </form>
                     </td>
                 </tr>

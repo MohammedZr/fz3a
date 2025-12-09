@@ -76,5 +76,128 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   @stack('scripts')
+  {{-- Chat Support Bubble --}}
+<div id="chatBubble" 
+    style="
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 65px;
+        height: 65px;
+        background: #0d6efd;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        z-index: 9999;
+    ">
+    💬
+</div>
+
+{{-- Chat Window --}}
+<div id="chatWindow" 
+    style="
+        position: fixed;
+        bottom: 100px;
+        right: 20px;
+        width: 320px;
+        height: 420px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.20);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        z-index: 9999;
+    ">
+    
+    {{-- Header --}}
+    <div style="background:#0d6efd; color:#fff; padding:12px; font-weight:bold;">
+        دعم فزعة ✦
+        <span id="closeChat" style="float:left; cursor:pointer;">✖</span>
+    </div>
+
+    {{-- Messages --}}
+    <div id="chatMessages" style="flex:1; padding:10px; overflow-y:auto; background:#f7f7f7;"></div>
+
+    {{-- Input --}}
+    <div style="padding:10px; border-top:1px solid #ddd;">
+        <input id="chatInput" type="text" class="form-control" placeholder="اكتب رسالتك…">
+        <button id="chatSend" class="btn btn-primary w-100 mt-2">إرسال</button>
+    </div>
+</div>
+@push('scripts')
+<script>
+
+let chatVisible = false;
+
+// فتح / إغلاق الشات
+document.getElementById('chatBubble').onclick = () => {
+    chatVisible = !chatVisible;
+    document.getElementById('chatWindow').style.display = chatVisible ? 'flex' : 'none';
+};
+
+document.getElementById('closeChat').onclick = () => {
+    document.getElementById('chatWindow').style.display = 'none';
+    chatVisible = false;
+};
+
+// إرسال رسالة
+document.getElementById('chatSend').onclick = sendMessage;
+
+function sendMessage() {
+    let msg = document.getElementById('chatInput').value;
+    if (!msg.trim()) return;
+
+    fetch("{{ route('chat.send') }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: msg })
+    }).then(() => {
+        document.getElementById('chatInput').value = "";
+        fetchMessages();
+    });
+}
+
+// جلب الرسائل
+function fetchMessages() {
+    fetch("{{ route('chat.fetch', 1) }}") // 1 = chat_id
+    .then(res => res.json())
+    .then(data => {
+        let box = document.getElementById('chatMessages');
+        box.innerHTML = "";
+
+        data.forEach(m => {
+            box.innerHTML += `
+                <div style="text-align:${m.sender_id == {{ auth()->id() ?? 0 }} ? 'right' : 'left'}; margin-bottom:7px;">
+                    <span style="
+                        background:${m.sender_id == {{ auth()->id() ?? 0 }} ? '#0d6efd' : '#e9ecef'};
+                        color:${m.sender_id == {{ auth()->id() ?? 0 }} ? 'white' : 'black'};
+                        padding:6px 10px;
+                        border-radius:10px;
+                        display:inline-block;
+                        max-width:80%;
+                    ">
+                        ${m.message}
+                    </span>
+                </div>
+            `;
+        });
+
+        box.scrollTop = box.scrollHeight;
+    });
+}
+
+// تحديث تلقائي كل 2 ثانية
+setInterval(fetchMessages, 2000);
+
+</script>
+
 </body>
 </html>

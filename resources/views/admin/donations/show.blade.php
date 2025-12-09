@@ -19,7 +19,7 @@
             <h5>بيانات التبرع</h5>
             <p><strong>النوع:</strong> {{ $donation->type }}</p>
             <p><strong>المبلغ:</strong> {{ $donation->amount ?? '-' }} {{ $donation->currency }}</p>
-            <p><strong>الحالة:</strong> {{ $donation->status }}</p>
+            {{-- <p><strong>الحالة:</strong> {{ $donation->status }}</p> --}}
             <p><strong>التاريخ:</strong> {{ $donation->created_at }}</p>
         </div>
 

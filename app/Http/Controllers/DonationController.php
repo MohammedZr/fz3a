@@ -91,5 +91,9 @@ class DonationController extends Controller
     $donation = Donation::with(['campaign', 'items', 'attachments', 'pickupRequest'])->findOrFail($id);
     return view('donations.show', compact('donation'));
 }
+public function __construct()
+{
+    $this->middleware('auth')->only(['create', 'store']);
+}
 
 }

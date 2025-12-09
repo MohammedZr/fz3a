@@ -45,4 +45,16 @@
     </div>
 
 </div>
+<hr class="my-4">
+
+<div class="row g-3">
+
+    <!-- زر إضافة حملة جديدة -->
+    <div class="col-md-4">
+        <a href="{{ route('admin.campaigns.create') }}" class="btn btn-success w-100 py-3">
+            ➕ إضافة حملة تبرع جديدة
+        </a>
+    </div>
+</div>
+
 @endsection

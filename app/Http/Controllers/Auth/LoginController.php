@@ -22,6 +22,8 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials, $request->remember)) {
             $request->session()->regenerate();
+            Cache::put('user-online-' . auth()->id(), true, now()->addMinutes(2));
+
             return redirect()->intended('/');
         }
 

@@ -135,3 +135,7 @@ Route::middleware(['auth','admin'])
             ->name('users.removeAdmin');
     });
 
+Route::middleware('auth')->group(function () {
+    Route::post('/chat/send', [ChatController::class, 'send'])->name('chat.send');
+    Route::get('/chat/{chat}/fetch', [ChatController::class, 'fetch'])->name('chat.fetch');
+});

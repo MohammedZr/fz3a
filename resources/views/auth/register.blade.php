@@ -10,9 +10,14 @@
         <div class="bg-white p-4 shadow rounded">
             <h3 class="text-center fw-bold mb-4">إنشاء حساب</h3>
 
+            {{-- عرض الأخطاء --}}
             @if ($errors->any())
                 <div class="alert alert-danger">
-                    <small>{{ $errors->first() }}</small>
+                    <ul class="mb-0 small">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
 
@@ -21,12 +26,12 @@
 
                 <div class="mb-3">
                     <label class="form-label">الاسم الكامل</label>
-                    <input type="text" class="form-control" name="name" required placeholder="الاسم">
+                    <input type="text" class="form-control" name="name" value="{{ old('name') }}" required placeholder="الاسم">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">البريد الإلكتروني</label>
-                    <input type="email" class="form-control" name="email" required placeholder="example@mail.com">
+                    <input type="email" class="form-control" name="email" value="{{ old('email') }}" required placeholder="example@mail.com">
                 </div>
 
                 <div class="mb-3">
