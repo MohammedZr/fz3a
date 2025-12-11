@@ -35,6 +35,9 @@
 
       <div id="nav" class="collapse navbar-collapse">
         <ul class="navbar-nav ms-auto">
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('donations.my') }}">تبرعاتي</a>
+</li>
 
           {{-- صفحات عامة --}}
           <li class="nav-item">
