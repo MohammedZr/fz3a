@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="900" viewBox="0 0 1000 900">
+  <style>
+    .box{fill:#f8fafc;stroke:#334155;stroke-width:2;rx:8;}
+    .text{font-family:Arial, Helvetica, sans-serif; font-size:14px; fill:#0f172a}
+    .title{font-weight:bold; font-size:16px}
+    .arrow{stroke:#0f172a; stroke-width:2; marker-end:url(#arrow)}
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0f172a" />
+    </marker>
+  </defs>
+
+  <text x="30" y="30" class="text title">Authentication Flow</text>
+
+  <!-- Boxes -->
+  <rect x="60" y="60" width="240" height="50" class="box"/>
+  <text x="80" y="92" class="text">User opens Login Page</text>
+
+  <rect x="360" y="60" width="240" height="50" class="box"/>
+  <text x="380" y="92" class="text">Enter email & password</text>
+
+  <rect x="660" y="60" width="240" height="50" class="box"/>
+  <text x="680" y="92" class="text">Validate input</text>
+
+  <rect x="360" y="160" width="240" height="50" class="box"/>
+  <text x="380" y="192" class="text">Authenticate (Auth::attempt)</text>
+
+  <rect x="360" y="260" width="240" height="50" class="box"/>
+  <text x="380" y="292" class="text">Create session / issue token</text>
+
+  <rect x="60" y="360" width="240" height="50" class="box"/>
+  <text x="80" y="392" class="text">Show validation errors / retry</text>
+
+  <rect x="660" y="360" width="240" height="50" class="box"/>
+  <text x="680" y="392" class="text">Load user roles & permissions</text>
+
+  <rect x="360" y="460" width="240" height="50" class="box"/>
+  <text x="380" y="492" class="text">Log login event (DB / activity log)</text>
+
+  <rect x="60" y="560" width="240" height="50" class="box"/>
+  <text x="80" y="592" class="text">Redirect -> Admin Dashboard</text>
+
+  <rect x="660" y="560" width="240" height="50" class="box"/>
+  <text x="680" y="592" class="text">Redirect -> User Dashboard</text>
+
+  <!-- Arrows -->
+  <line x1="300" y1="85" x2="360" y2="85" class="arrow" />
+  <line x1="600" y1="85" x2="660" y2="85" class="arrow" />
+  <line x1="780" y1="110" x2="780" y2="160" class="arrow" />
+  <line x1="480" y1="210" x2="480" y2="260" class="arrow" />
+  <line x1="420" y1="310" x2="420" y2="360" class="arrow" />
+  <line x1="420" y1="360" x2="180" y2="385" class="arrow" />
+  <line x1="600" y1="310" x2="720" y2="385" class="arrow" />
+  <line x1="480" y1="335" x2="480" y2="460" class="arrow" />
+  <line x1="480" y1="510" x2="180" y2="560" class="arrow" />
+  <line x1="480" y1="510" x2="780" y2="560" class="arrow" />
+
+  <!-- Decision authenticated? (visual) -->
+  <rect x="600" y="240" width="200" height="40" rx="8" ry="8" fill="#fecaca" stroke="#b91c1c" stroke-width="1"/>
+  <text x="620" y="265" class="text">Authenticated?</text>
+
+</svg>
