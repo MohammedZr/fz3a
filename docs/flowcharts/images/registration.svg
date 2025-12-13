@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <style>
+    .box{fill:#f8fafc;stroke:#334155;stroke-width:2;rx:8;}
+    .text{font-family:Arial, Helvetica, sans-serif; font-size:16px; fill:#0f172a}
+    .title{font-weight:bold; font-size:20px}
+    .arrow{stroke:#0f172a; stroke-width:2; marker-end:url(#arrow)}
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0f172a" />
+    </marker>
+  </defs>
+  <text x="30" y="40" class="text title">Registration Flow</text>
+
+  <rect x="60" y="80" width="320" height="60" class="box"/>
+  <text x="80" y="120" class="text">User opens Signup Page</text>
+
+  <rect x="430" y="80" width="320" height="60" class="box"/>
+  <text x="450" y="120" class="text">Fill signup form</text>
+
+  <rect x="800" y="80" width="320" height="60" class="box"/>
+  <text x="820" y="120" class="text">Validate input</text>
+
+  <rect x="430" y="220" width="320" height="60" class="box"/>
+  <text x="450" y="260" class="text">Create user record (users table)</text>
+
+  <rect x="430" y="360" width="320" height="60" class="box"/>
+  <text x="450" y="400" class="text">Hash password & save</text>
+
+  <rect x="430" y="500" width="320" height="60" class="box"/>
+  <text x="450" y="540" class="text">Send verification email</text>
+
+  <rect x="60" y="500" width="320" height="60" class="box"/>
+  <text x="80" y="540" class="text">Show validation errors</text>
+
+  <rect x="800" y="500" width="320" height="60" class="box"/>
+  <text x="820" y="540" class="text">Verify token -> set email_verified_at</text>
+
+  <rect x="430" y="660" width="320" height="60" class="box"/>
+  <text x="450" y="700" class="text">Assign default roles & trigger welcome notification</text>
+
+  <!-- Arrows -->
+  <line x1="380" y1="110" x2="430" y2="110" class="arrow" />
+  <line x1="750" y1="110" x2="800" y2="110" class="arrow" />
+  <line x1="590" y1="160" x2="590" y2="220" class="arrow" />
+  <line x1="590" y1="280" x2="590" y2="360" class="arrow" />
+  <line x1="590" y1="420" x2="590" y2="500" class="arrow" />
+  <line x1="590" y1="560" x2="180" y2="530" class="arrow" />
+  <line x1="750" y1="560" x2="800" y2="560" class="arrow" />
+  <line x1="590" y1="560" x2="590" y2="660" class="arrow" />
+
+</svg>
