@@ -54,7 +54,8 @@
     </li>
     @endif
     
-
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('donations.my') }}">تبرعاتي</a>
     <li class="nav-item">
         <form action="{{ route('logout') }}" method="POST">@csrf
             <button class="btn btn-link nav-link">خروج</button>

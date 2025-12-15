@@ -43,6 +43,21 @@
 
 
     </div>
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <h5 class="mb-3">الحملات</h5>
+
+                <a href="{{ route('admin.campaigns.create') }}" 
+                   class="btn btn-success w-100">
+                    ➕ إضافة حملة جديدة
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 </div>
 @endsection

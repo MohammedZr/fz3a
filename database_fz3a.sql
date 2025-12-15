@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2025 at 12:53 AM
+-- Generation Time: Dec 15, 2025 at 09:56 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -37,6 +37,13 @@ CREATE TABLE `attachments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `attachments`
+--
+
+INSERT INTO `attachments` (`id`, `attachable_type`, `attachable_id`, `path`, `disk`, `alt`, `created_at`, `updated_at`) VALUES
+(1, NULL, NULL, 'campaigns/H7ymPCjp73lJueT65YBd15ZQDJVihXuK0PoJqvct.png', 'public', NULL, '2025-12-09 20:01:55', '2025-12-09 20:01:55');
 
 -- --------------------------------------------------------
 
@@ -82,6 +89,27 @@ CREATE TABLE `campaigns` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `campaigns`
+--
+
+INSERT INTO `campaigns` (`id`, `title`, `description`, `owner_id`, `goal_amount`, `raised_amount`, `status`, `starts_at`, `ends_at`, `created_at`, `updated_at`) VALUES
+(1, 'حملة جديدة بتاريخ شهر 12', 'حملة تبرعات جديدة لشهر ديسمبر', NULL, 10000.00, 0.00, 'active', NULL, NULL, '2025-12-09 20:01:55', '2025-12-09 20:01:55');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chats`
+--
+
+CREATE TABLE `chats` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `admin_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -92,7 +120,7 @@ CREATE TABLE `donations` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
   `campaign_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `type` enum('cash','in_kind') NOT NULL,
+  `type` enum('cash','goods') NOT NULL,
   `amount` decimal(12,2) DEFAULT NULL,
   `currency` varchar(8) NOT NULL DEFAULT 'LYD',
   `status` enum('pending','paid','verified','cancelled') NOT NULL DEFAULT 'pending',
@@ -110,7 +138,11 @@ CREATE TABLE `donations` (
 
 INSERT INTO `donations` (`id`, `user_id`, `campaign_id`, `type`, `amount`, `currency`, `status`, `donor_name`, `donor_phone`, `donor_email`, `is_anonymous`, `created_at`, `updated_at`) VALUES
 (1, 1, NULL, 'cash', 4554.00, 'LYD', 'pending', NULL, NULL, NULL, 1, '2025-11-14 08:16:32', '2025-11-14 08:16:32'),
-(2, 2, NULL, 'cash', 20.00, 'LYD', 'pending', 'محمد ابوبكر الزرقاني', '0928065698', 'm.alzurghni123@gmail.com', 0, '2025-11-24 16:01:47', '2025-11-24 16:01:47');
+(2, 2, NULL, 'cash', 20.00, 'LYD', 'pending', 'محمد ابوبكر الزرقاني', '0928065698', 'm.alzurghni123@gmail.com', 0, '2025-11-24 16:01:47', '2025-11-24 16:01:47'),
+(3, NULL, NULL, 'cash', 60.00, 'LYD', 'paid', NULL, NULL, NULL, 1, '2025-12-06 03:14:21', '2025-12-06 15:35:15'),
+(4, 3, NULL, 'cash', 500.00, 'LYD', 'pending', 'محمد غميض', '09532532', 'user@user.com', 0, '2025-12-06 15:39:57', '2025-12-06 15:39:57'),
+(5, 3, NULL, 'goods', NULL, 'LYD', 'verified', 'محمد ابوبكر الزرقاني', '0928065698', 'm.alzrughni123@gmail.com', 0, '2025-12-11 21:12:02', '2025-12-11 21:12:02'),
+(6, 3, NULL, 'goods', NULL, 'LYD', 'verified', 'محمد ابوبكر الزرقاني', '0928065698', 'm.alzrughni123@gmail.com', 0, '2025-12-11 21:12:47', '2025-12-11 21:12:47');
 
 -- --------------------------------------------------------
 
@@ -142,6 +174,14 @@ CREATE TABLE `donation_items` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `donation_items`
+--
+
+INSERT INTO `donation_items` (`id`, `donation_id`, `category`, `condition`, `quantity`, `notes`, `created_at`, `updated_at`) VALUES
+(1, 5, 'ملابس', 'ممتاز', '5', NULL, '2025-12-11 21:12:02', '2025-12-11 21:12:02'),
+(2, 6, 'ملابس', 'ممتاز', '5', NULL, '2025-12-11 21:12:47', '2025-12-11 21:12:47');
 
 -- --------------------------------------------------------
 
@@ -197,6 +237,21 @@ CREATE TABLE `job_batches` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `chat_id` bigint(20) UNSIGNED NOT NULL,
+  `sender_id` bigint(20) UNSIGNED NOT NULL,
+  `message` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -222,7 +277,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2025_11_10_124550_create_pickup_requests_table', 1),
 (10, '2025_11_10_124551_create_attachments_table', 1),
 (11, '2025_11_11_164345_add_role_to_users_table', 2),
-(12, '2025_11_19_172239_create_donation_attachments_table', 3);
+(12, '2025_11_19_172239_create_donation_attachments_table', 3),
+(13, '2025_12_09_211928_create_chats_table', 4),
+(14, '2025_12_09_212100_create_messages_table', 4);
 
 -- --------------------------------------------------------
 
@@ -291,6 +348,14 @@ CREATE TABLE `pickup_requests` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `pickup_requests`
+--
+
+INSERT INTO `pickup_requests` (`id`, `donation_id`, `city`, `address_line`, `contact_phone`, `preferred_datetime`, `status`, `created_at`, `updated_at`) VALUES
+(1, 5, 'طرابلس', 'سوق الجمعه', '0928065698', '2025-12-12 01:05:00', 'requested', '2025-12-11 21:12:02', '2025-12-11 21:12:02'),
+(2, 6, 'Tripoli', 'سوق الجمعه', '0928065698', '2025-12-12 01:12:00', 'requested', '2025-12-11 21:12:47', '2025-12-11 21:12:47');
+
 -- --------------------------------------------------------
 
 --
@@ -311,10 +376,12 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('2ncF9FVTlNzg62XtrrEnfpylM2aZmQKrj4oGqHQ3', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoibDl4cTU5TVFwVU5ZMzNJelV0TklFSVQ2T1o1ZEtNaWh6cHQzd3BXUiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXNoYm9hcmQiO3M6NToicm91dGUiO3M6MTU6ImFkbWluLmRhc2hib2FyZCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1764008862),
-('hS3E5s8aTUUHDpPpej2wkoNUheWP1SUdAV3fosr3', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiQWVLNFBkbXB3aWhUc0ZqQ1RRdVBHcTBhNnYyMFJoTDJ1UkU4V1JUYyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NDA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wYXltZW50L2NoZWNrb3V0LzEiO3M6NToicm91dGUiO3M6MTY6InBheW1lbnQuY2hlY2tvdXQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1763573040),
-('jKg2D9vVgdqlChyFFBNqXyaZMvFhK6DEFN5lks52', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoicXV0Yzdmb3h5NnpkQmxaR2h6c0VwMzAzcDFaZXk0c1lkd2NYWlVjTiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kb25hdGUiO3M6NToicm91dGUiO3M6MTY6ImRvbmF0aW9ucy5jcmVhdGUiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjM6InVybCI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1763058430),
-('yvluKnADr1MFqSEqNO2zoiqATjHCDs197eD5WTXE', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiUU0wSGV6cXBxbFdsY2VZYjd2NXRQc0NCN3JGdzRZTDc4TFRCY3c4cCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kb25hdGlvbnMvMSI7czo1OiJyb3V0ZSI7czoxNDoiZG9uYXRpb25zLnNob3ciO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjM6InVybCI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1763115533);
+('0keBxjShssiXx71Ve14DuPuVNSXg0Oss8X4oPf97', 4, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiWGJoZ0dnbDZ5c3NJUTJhQzZRUkFiR29kWjcxQTVhY3dKc0ZvNThWYiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jYW1wYWlnbnMvMSI7czo1OiJyb3V0ZSI7czoxNDoiY2FtcGFpZ25zLnNob3ciO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTo0O30=', 1765587939),
+('909X6TPr4Y0SSwzylK0POsF9XdHy74HO7ZMEyBQO', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiWmZXVklZejdXYjNHOGxDR1NuWVNWbTdrVG5SRDVram1BZ1JENzVaSCI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjM0OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvY2hhdC8xL2ZldGNoIjtzOjU6InJvdXRlIjtzOjEwOiJjaGF0LmZldGNoIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1765492483),
+('gzhte8OMz5Nj3kdrS8rm5Km3bUgoKoa70tIUAOOw', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoidWswcEFrUWRGNlZSMElXaklyc25MWXBDdWRjTU1UaVF1OVRIVjdBYiI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjIxOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAiO3M6NToicm91dGUiO3M6NDoiaG9tZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1765499725),
+('UwNMQ5kyZpaokUfgWurzxSkQXmn6lYf9481uAMnm', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiRmJ5ZFZZaE0xU2lXNWxhREVXTm1najJId2tIdUxGVkNHUmVnR051ayI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1765491371),
+('vLYStuBeD2tZE4DxpkK7kpObQGNLxa9O0UtmZZ5B', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiNmpIaENrejJDT1RCM3ZSZXBGVDR0WGNHT0t3MTZUVXpqc1hmMjdzWSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7czo1OiJyb3V0ZSI7czo1OiJsb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzQ6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jaGF0LzEvZmV0Y2giO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1765491834),
+('zlkyPzYPayVTgWFebJokYYca2upjSLKBFcej3lD1', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoieDhISVYxVVNRNHYzcnQ2dmw4QjhyOG9yMWVjZGw5MUhGd1dqZWplUCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1765491371);
 
 -- --------------------------------------------------------
 
@@ -340,7 +407,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `role`) VALUES
 (1, 'admin', 'admin@example.com', NULL, '$2y$12$3/I5MSNYurqTwflQ1ZtgsuWnmJklPzDf3ZfShNLd2YE1/PL2ODFrW', NULL, '2025-11-11 14:53:35', '2025-11-11 14:53:35', 'admin'),
-(2, 'mohammedalzurghni', 'm.alzurghni123@gmail.com', NULL, '$2y$12$Vu/TcRwtCnDB/zlZ58awUu6lVIBUvnASqGWwsneahRIO0gJkBSDbS', NULL, '2025-11-24 15:59:13', '2025-11-24 15:59:13', 'user');
+(2, 'mohammedalzurghni', 'm.alzurghni123@gmail.com', NULL, '$2y$12$Vu/TcRwtCnDB/zlZ58awUu6lVIBUvnASqGWwsneahRIO0gJkBSDbS', NULL, '2025-11-24 15:59:13', '2025-11-24 15:59:13', 'user'),
+(3, 'aliabalzurghani', 'user@user.com', NULL, '$2y$12$F/w9wL8eCqr4DWEGpT5Cn.g6pllEL47Bd.6F1Y3s6dMcCYhuw/sn6', NULL, '2025-12-06 15:39:00', '2025-12-06 15:39:00', 'user'),
+(4, 'admin1', 'admin1@admin1.com', NULL, '$2y$12$U.Di.sdttq2aIAER8bhUFO9fgho/DRJdgXDk6l3spRmqHurNd05QO', NULL, '2025-12-12 22:50:08', '2025-12-12 22:50:08', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -371,6 +440,12 @@ ALTER TABLE `cache_locks`
 ALTER TABLE `campaigns`
   ADD PRIMARY KEY (`id`),
   ADD KEY `campaigns_owner_id_foreign` (`owner_id`);
+
+--
+-- Indexes for table `chats`
+--
+ALTER TABLE `chats`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `donations`
@@ -412,6 +487,12 @@ ALTER TABLE `jobs`
 -- Indexes for table `job_batches`
 --
 ALTER TABLE `job_batches`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -471,19 +552,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `attachments`
 --
 ALTER TABLE `attachments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `campaigns`
 --
 ALTER TABLE `campaigns`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `chats`
+--
+ALTER TABLE `chats`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `donations`
 --
 ALTER TABLE `donations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `donation_attachments`
@@ -495,7 +582,7 @@ ALTER TABLE `donation_attachments`
 -- AUTO_INCREMENT for table `donation_items`
 --
 ALTER TABLE `donation_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -510,10 +597,16 @@ ALTER TABLE `jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -531,13 +624,13 @@ ALTER TABLE `payment_methods`
 -- AUTO_INCREMENT for table `pickup_requests`
 --
 ALTER TABLE `pickup_requests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

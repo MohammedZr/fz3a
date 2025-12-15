@@ -135,3 +135,7 @@ Route::middleware(['auth','admin'])
             ->name('users.removeAdmin');
     });
 
+Route::middleware('auth')->group(function () {
+    Route::get('/my-donations', [DonationController::class, 'myDonations'])
+        ->name('donations.my');
+});
